@@ -11,6 +11,7 @@ namespace MyMethods
             Hw2LogicAndMathExpressions hw2 = new Hw2LogicAndMathExpressions();
             //hw2.SolveTask1();
             hw2.SolveTask5();
+            Hw3 hw3 = new Hw3();
         }
     }
 }
