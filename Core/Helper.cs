@@ -56,7 +56,7 @@ namespace Core
             Console.WriteLine();
             return arr;
         }
-        public static void PrintArr(int[] arr)
+        public static void PrintIntArr(int[] arr)
         {
             foreach (var item in arr)
             {

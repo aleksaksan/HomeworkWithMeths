@@ -4,7 +4,7 @@ using Core;
 namespace MyMethods
 {
     public class Hw3
-    {
+    { 
         //task1
         public void SolveTask1()
         {
