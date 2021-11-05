@@ -43,7 +43,7 @@ namespace Core
             int[,] arr = new int[mDimention, nDimention];
             for (int i = 0; i < mDimention; i++)
                 for (int j = 0; j < nDimention; j++)
-                    arr[i, j] = rnd.Next(-10, 10);
+                    arr[i, j] = rnd.Next(1, 10);
 
             for (int i = 0; i < mDimention; i++)
             {
@@ -63,6 +63,15 @@ namespace Core
                 Console.Write(item + "\t");
             }
             Console.WriteLine();
+        }
+        public static void PrintMatrix<T>(T[,] arr)
+        {
+            for (int i = 0; i < arr.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr.GetLength(1); j++)
+                    Console.Write(arr[i, j] + "\t");
+                Console.WriteLine();
+            }
         }
     }
 }

@@ -12,8 +12,10 @@ namespace MyMethods
             //hw2.SolveTask1();
             //hw2.SolveTask5();
             //Hw3 hw3 = new Hw3();
-            Hw5 hw5 = new Hw5();
-            hw5.SolveTask6();
+            //Hw5 hw5 = new Hw5();
+            //hw5.SolveTask6();
+            Hw6 hw6 = new Hw6();
+            hw6.SolveTask8();
         }
     }
 }
