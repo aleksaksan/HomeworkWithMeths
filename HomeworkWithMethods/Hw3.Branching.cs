@@ -81,7 +81,7 @@ namespace MyMethods
             Console.ReadKey();
         }
         //метод написал для выполнения по заданию (не использую)
-        string GetIncreaseAnswer(int a, int b, int c)
+        public string GetIncreaseAnswer(int a, int b, int c)
         {
             if (a < b && a < c)
             {
@@ -328,7 +328,7 @@ namespace MyMethods
             else
                 Console.WriteLine("Треугольнику не быть");
         }
-        bool CanBeTriangle(double a, double b, double c)
+        public bool CanBeTriangle(double a, double b, double c)
         {
             return a + b > c && a + c > b && b + c > a;
         }

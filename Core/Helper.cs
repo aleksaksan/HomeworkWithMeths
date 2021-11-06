@@ -10,7 +10,7 @@ namespace Core
             a = b;
             b = temp;
         }
-        public static void MyBubbleSort(int[] arr) //sort
+        public static int[] MyBubbleSort(params int[] arr) //sort
         {
             for (int i = 0; i < arr.Length - 1; i++)
             {
@@ -20,6 +20,7 @@ namespace Core
                         MySwap(ref arr[j], ref arr[j + 1]);
                 }
             }
+            return arr;
         }
         public static int[] InitArr(int from, int to, int size) //инициализация массива и вывод на экран
         {

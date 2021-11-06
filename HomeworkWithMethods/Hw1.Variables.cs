@@ -3,7 +3,7 @@ using Core;
 
 namespace MyMethods
 {
-    public class Hw1Variables
+    public class Hw1
     {
         //task1
         public void SolveTask1()
@@ -27,9 +27,9 @@ namespace MyMethods
             Console.WriteLine("result = " + result);
             Console.ReadKey();
         }
-        double GetMathCalc(double numA, double numB)
+        public double GetMathCalc(double numA, double numB)
         {
-            if (numA == numB || numA == 0 && numB == 0) 
+            if (numA == numB) 
                 throw new DivideByZeroException("на ноль делить нельзя!");
             double result = (5 * numA + Math.Pow(numB, 4)) / (numB - numA);
             return result;
@@ -40,7 +40,7 @@ namespace MyMethods
             Console.WriteLine("Пользователь вводит 2 строковых значения(s1 и s2).\nПоменяйте содержимое переменных s1 и s2 местами.\n");
             string str1 = DataInput.GetStringFromUser("Введите первую строку: ");
             string str2 = DataInput.GetStringFromUser("Введите вторую строку: ");
-            Helper.MySwap(ref str1, ref str2);
+            Helper.MySwap(ref str1, ref str2);  //test is at Helper.Tests.cs
             Console.WriteLine("строка A после изменений: \t" + str1);
             Console.WriteLine("строка B после изменений: \t" + str2);
             Console.ReadKey();
@@ -54,15 +54,14 @@ namespace MyMethods
             int numB = DataInput.GetIntNumFromUser("Введите число B: ");
             int numC = DataInput.GetIntNumFromUser("Введите число C: ");
             Console.WriteLine();
-            if (GetX(numA, numB, numC) != double.NaN)
-                Console.WriteLine($"A*X+B=C\nX = {GetX(numA, numB, numC)}");
-            else Console.WriteLine("нет корней");
+            Console.WriteLine($"A*X+B=C\nX = {GetX(numA, numB, numC)}");
+            
             Console.ReadKey();
         }
-        double GetX(int numA, int numB, int numC)
+        public double GetX(int numA, int numB, int numC)
         {
-            if (numA == 0) 
-                return double.NaN;
+            if (numA == 0 || numB == 0 || numC == 0)
+                throw new ArgumentNullException();
             return (numC - numB) / (double)numA;
         }
     }

@@ -3,7 +3,7 @@ using Core;
 
 namespace MyMethods
 {
-    public class Hw2LogicAndMathExpressions
+    public class Hw2
     {
         //task1
         public void SolveTask1()
@@ -16,18 +16,21 @@ namespace MyMethods
             WriteReverseArr(arr);
             Console.WriteLine(")");
         }
-        int[] DivideOnDigits(int val)
+        public int[] DivideOnDigits(int val)
         {
             int size = 1;
             var tempVal = val;
-            do
+            
+            while (tempVal / 10 != 0)
             {
                 tempVal /= 10;
                 size++;
             }
-            while (tempVal / 10 != 0);
 
             int[] res = new int[size];
+            res.Initialize();
+            if (val == 0)
+                return res;
             for (int i = 0; i < res.Length; i++)
             {
                 res[i] = val % 10;
@@ -35,34 +38,41 @@ namespace MyMethods
             }
             return res;
         }
-        int SumInArr(int[] arr)
+        public int SumInArr(int[] arr)
         {
             int sum = 0;
             for (int i = 0; i < arr.Length; i++)
                 sum += arr[i];
             return sum;
         }
-        void WriteReverseArr(int[] arr)
+        public int[] WriteReverseArr(int[] arr)
         {
-            for (int i = arr.Length - 1; i > 0; i--)
+            int[] rra = new int[arr.Length];
+            if (arr.Length == 0)
+                return rra;
+            for (int i = arr.Length - 1, j = 0; j < arr.Length; i--, j++)
+            {
                 Console.Write($"{arr[i]} + ");
+                rra[j] = arr[i];
+            }
             Console.Write(arr[0]);
+            return rra;
         }
         //task2
         public void SolveTask2()
         {
             double x1 = DataInput.GetDoubleNumFromUser("введите координату x: ");
             double y1 = DataInput.GetDoubleNumFromUser("введите координату y: ");
-            double R = DataInput.GetDoubleNumFromUser("введите радиус окружности R: ");
-            if (IsInRound(x1, y1, R))
+            double rad = DataInput.GetDoubleNumFromUser("введите радиус окружности R: ");
+            if (IsInRound(x1, y1, rad))
                 Console.WriteLine("Есть пробитие!");
             else
                 Console.WriteLine("Промах!");
         }
-        bool IsInRound(double x, double y, double r)
+        public bool IsInRound(double x, double y, double r)
         {
             //x^2 + y^2 = R^2
-            return x * x + y * y <= r * r ? true : false;
+            return x * x + y * y <= r * r;
         }
         //task3
         public void SolveTask3()
@@ -70,9 +80,9 @@ namespace MyMethods
             int num = DataInput.GetIntNumFromUser("Введите трехзначное число: ");
             Console.WriteLine(IsInHalf(DivideOnDigits(num)));
         }
-        bool IsInHalf(int[] arr)
+        public bool IsInHalf(int[] arr)
         {
-            return arr[0] >= arr[1] && arr[1] > arr[2] ? true : false;
+            return arr[0] < arr[1] && arr[1] <= arr[2];
         }
         //task4
         public void SolveTask4()
@@ -80,7 +90,7 @@ namespace MyMethods
             int num = DataInput.GetIntNumFromUser("Введите трехзначное число: ");
             Console.WriteLine($"новое число: {GetMirrorNum(num)}");
         }
-        int GetMirrorNum(int num)
+        public int GetMirrorNum(int num)
         {
             int mirNum = 0;
             while (num > 0)
@@ -97,7 +107,7 @@ namespace MyMethods
             double num = DataInput.GetDoubleNumFromUser("введите дробное число: ");
             Console.WriteLine(IsHaveFractPart(num));
         }
-        bool IsHaveFractPart(double num)
+        public bool IsHaveFractPart(double num)
         {
             return num == (int)num ? true : false;
         }
