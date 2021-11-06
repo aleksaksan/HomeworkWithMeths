@@ -27,7 +27,6 @@ namespace Tests
         }
 
         [TestCase(-1, -1, "на ноль делить нельзя!")]
-
         public void GetMathCalcNegativeTest(double var1, double var2, string expected)
         {
 

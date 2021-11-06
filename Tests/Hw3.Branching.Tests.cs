@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using MyMethods;
-using System;
 
 namespace Tests
 {

@@ -3,7 +3,7 @@ using Core;
 
 namespace MyMethods
 {
-    public class HW3
+    public class Hw4
     {
        
         // task 1
@@ -13,8 +13,10 @@ namespace MyMethods
             int numA = DataInput.GetIntNumFromUser("Введите число А: ");
             Helper.PrintIntArr(ReturnNumsWitchDivA(numA));
         }
-        int[] ReturnNumsWitchDivA(int numA)
+        public int[] ReturnNumsWitchDivA(int numA)
         {
+            if (numA == 0)
+                throw new DivideByZeroException();
             int count = 0;
             //для увеличения быстродействия вместо цикла можно было бы просто создать массив на 1000 эл
             //экономил память
@@ -24,10 +26,13 @@ namespace MyMethods
                     count++;
             }
             int[] arr = new int[count];
-            for (int i = 0, j = 1; i < arr.Length; i++, j++)
+            for (int i = 1, j = 0; i <= 1000; i++)
             {
-                if (j % numA == 0)
-                    arr[i] = j;
+                if (i % numA == 0)
+                {
+                    arr[j] = i;
+                    j++;
+                }
             }
             return arr;
         }
@@ -180,6 +185,12 @@ namespace MyMethods
         }
         public int GetMirrorNum(int num)
         {
+            bool mi = false;
+            if (num < 0)
+            {
+                mi = true;
+                num = -num;
+            }
             int mirNum = 0;
             while (num > 0)
             {
@@ -187,6 +198,8 @@ namespace MyMethods
                 mirNum += num % 10;
                 num /= 10;
             }
+            if (mi)
+                return -mirNum;
             return mirNum;
         }
         //task 9
