@@ -3,7 +3,7 @@ using Core;
 
 namespace MyMethods
 {
-    class Hw5
+    public class Hw5
     {
         // task 1
         public void SolveTask1()
@@ -50,7 +50,7 @@ namespace MyMethods
         //надеюсь, что правильно понял из задания: если заменить, а не вставить...
         public void GetArrWithSumOfTwoNeighbElems(int[] arr)
         {
-            for (int i = 0; i < arr.Length; i += 2)
+            for (int i = 0; i < arr.Length - 2; i += 3)
             {
                 arr[i + 2] = arr[i] + arr[i + 1];
             }
@@ -74,7 +74,7 @@ namespace MyMethods
             for (int i = 0; i < arr1.Length; i++)
                 resArr[i] = arr1[i];
             for (int i = 0; i < arr2.Length; i++)
-                resArr[i + arr1.Length - 1] = arr2[i];
+                resArr[i + arr1.Length] = arr2[i];
             return resArr;
         }
 
@@ -92,11 +92,21 @@ namespace MyMethods
         }
         public int[] ChangeHalves(int[] arr) 
         {
-            for (int i = 0; i < arr.Length / 2; i++)
+            //for (int i = 0; i < arr.Length / 2; i++)
+            //{
+            //    Helper.MySwap(ref arr[i], ref arr[i + arr.Length / 2 + arr.Length % 2]); //12345 - 45312
+            //}
+            int[] secondPart = new int[arr.Length / 2];
+            int[] thirsPart = new int[arr.Length / 2 + arr.Length % 2];
+            for (int i = arr.Length / 2 + arr.Length % 2, j = 0; i < arr.Length; i++, j++)//1 2 3 4 5 - 4 5 1 2 3
             {
-                Helper.MySwap(ref arr[i], ref arr[i + arr.Length / 2]); // 1 2 3 4 5 - 4 5 1 2 3
-                //Helper.MySwap(ref arr[i], ref arr[i + arr.Length / 2 + arr.Length % 2]); //12345 - 45312
+                secondPart[j] = arr[i];
             }
+            for (int i = 0; i < arr.Length/2 + arr.Length % 2; i++)
+            {   
+                thirsPart[i] = arr[i];
+            }
+            arr = MergeTwoArrays(secondPart, thirsPart);
             return arr;
         }
         //task5
@@ -113,17 +123,21 @@ namespace MyMethods
             SheeftLoopArr(myArr, size);
             Helper.PrintIntArr(myArr);
         }
-        public void SheeftLoopArr(int[] arr, int n)
+        public int[] SheeftLoopArr(int[] arr, int n)
         {
-            for (int j = 0; j < n; j++) 
+            if (arr.Length != 0)
             {
-                int tempLast = arr[arr.Length-1];
-                for (int i = arr.Length - 1; i > 1; i--)
+                for (int j = 0; j < n; j++)
                 {
-                    arr[i] = arr[i - 1];
+                    int tempLast = arr[arr.Length - 1];
+                    for (int i = arr.Length - 1; i > 0; i--)//123456 //
+                    {
+                        arr[i] = arr[i - 1];
+                    }
+                    arr[0] = tempLast;
                 }
-                arr[0] = tempLast;    
             }
+            return arr;
         }
         //task6
         
@@ -136,12 +150,13 @@ namespace MyMethods
             SwapNeighbInArr(myArr);
             Helper.PrintIntArr(myArr);
         }
-        public void SwapNeighbInArr(int[] arr)
+        public int[] SwapNeighbInArr(int[] arr)
         {
-            for (int i = 0; i < arr.Length / 2; i+=2)  
+            for (int i = 0; i < arr.Length - 1; i+=2)  
             {
                 Helper.MySwap(ref arr[i], ref arr[i + 1]);
             }
+            return arr;
         }
         //task7
         public void SolveTask7()
@@ -157,10 +172,12 @@ namespace MyMethods
         }
         public int FindABSMin(int[] arr)
         {
+            if (arr.Length == 0)
+                return -1;
             int min = arr[0];
             if (min < 0)
                 min *= -1;
-            for (int i = 1; i < arr.Length; i += 2)
+            for (int i = 1; i < arr.Length; i++)
             {
                 int temp = arr[i];
                 if (temp < 0)
@@ -222,14 +239,13 @@ namespace MyMethods
         public void SelectSort(int[] arr)
         {
             int minIdx;
-            for (int i = 0; i < arr.Length - 2; i++)
+            for (int i = 0; i < arr.Length - 1; i++)
             {
                 minIdx = i;
-                for (int j = i + 1; j < arr.Length - 1; j++)
+                for (int j = i + 1; j < arr.Length; j++)
                     if (arr[j] < arr[minIdx])
                         minIdx = j;
-                if (minIdx != i)
-                    Helper.MySwap(ref arr[i], ref arr[minIdx]);
+                Helper.MySwap(ref arr[i], ref arr[minIdx]);
             }
         }
     }
