@@ -3,7 +3,7 @@ using Core;
 
 namespace MyMethods
 {
-    class Hw6
+    public class Hw6
     {
         // task1
         public void SolveTask1()
@@ -48,6 +48,8 @@ namespace MyMethods
         }
         public byte[,] GetChessDesc(int n)
         {
+            if (n < 0)
+                return new byte[,] { };
             byte[,] arr = new byte[n, n];
             bool state = true;
             for (int i = 0; i < arr.GetLength(0); i++)
@@ -159,10 +161,11 @@ namespace MyMethods
         public double[] GetAveregeForShop(double[,] arr)
         {
             double[] income = new double[arr.GetLength(0)];
-            double temp = 0;
+            double temp;
             income.Initialize();
             for (int i = 0; i < arr.GetLength(0); i++)
             {
+                temp = 0;
                 for (int j = 0; j < arr.GetLength(1); j++)
                     temp += arr[i, j];
                 income[i] = temp / 6;
@@ -174,6 +177,8 @@ namespace MyMethods
         // c)
         public double[,] GetMinMaxForShop(double[,] arr)
         {
+            if (arr.GetLength(1) == 0)
+                return new double[,] { };
             double[,] income = new double[arr.GetLength(0), 2];
             income.Initialize();
             for (int i = 0; i < arr.GetLength(0); i++)
@@ -206,58 +211,58 @@ namespace MyMethods
             Console.WriteLine($"количество элементов массива, " +
                 $"которые больше всех своих соседей одновременно: {CountOfBiggers(myArr)}");
         }
-        public int CountOfBiggers(int[,] myArr)
+        public int CountOfBiggers(int[,] arr)
         {
             int resCounter = 0;
-
-            for (int i = 1; i < myArr.GetLength(0) - 1; i++)    //без крайних столбцов и строчек
+            //середина
+            for (int i = 1; i < arr.GetLength(0)-1; i++)
             {
-                for (int j = 1; j < myArr.GetLength(1) - 1; j++)
+                for (int j = 1; j < arr.GetLength(1)-1; j++)
                 {
-                    if (myArr[i, j] > myArr[i - 1, j - 1] && myArr[i, j] > myArr[i + 1, j + 1]
-                        && myArr[i, j] > myArr[i, j - 1] && myArr[i, j] > myArr[i - 1, j])
+                    if (arr[i, j] > arr[i + 1, j] && arr[i, j] > arr[i, j + 1] && 
+                        arr[i, j] > arr[i - 1, j] && arr[i, j] > arr[i, j - 1])
                         resCounter++;
                 }
             }
-            for (int j = 1; j < myArr.GetLength(1) - 1; j++)    // для верхней строки без последнего элемента 
-                if (myArr[0, j] > myArr[0, j + 1] && myArr[0, j] > myArr[0, j - 1] && myArr[0, j] > myArr[1, j])
+            //края
+            for (int i = 1; i < arr.GetLength(0) - 1; i++)
+            {
+                if (arr[i, 0] > arr[i + 1, 0] && arr[i, 0] > arr[i - 1, 0] && arr[i, 0] > arr[i, 1])
                     resCounter++;
-
-            for (int i = 1; i < myArr.GetLength(0) - 1; i++)    // для левого столбца без последнего элемента 
-                if (myArr[i, 0] > myArr[i + 1, 0] && myArr[i, 0] > myArr[i - 1, 0] && myArr[i, 0] > myArr[i, 1])
+            }
+            for (int i = 1; i < arr.GetLength(0) - 1; i++)
+            {
+                if (arr[i, arr.GetLength(1) - 1] > arr[i + 1, arr.GetLength(1) - 1] &&
+                    arr[i, arr.GetLength(1) - 1] > arr[i - 1, arr.GetLength(1) - 1] &&
+                    arr[i, arr.GetLength(1) - 1] > arr[i, arr.GetLength(1) - 1 - 1])
                     resCounter++;
-
-            for (int j = 1; j < myArr.GetLength(1) - 1; j++)    // для нижней строки без последнего элемента 
-                if (myArr[myArr.GetLength(0) - 1, j] > myArr[myArr.GetLength(0) - 1, j + 1]
-                    && myArr[myArr.GetLength(0) - 1, j] > myArr[myArr.GetLength(0) - 1, j - 1]
-                    && myArr[myArr.GetLength(0) - 1, j] > myArr[myArr.GetLength(0) - 2, j])
+            }for (int j = 1; j < arr.GetLength(1) - 1; j++)
+            {
+                if (arr[0, j] > arr[0, j+1] && arr[0, j] > arr[0, j - 1] && arr[0, j] > arr[1, j])
                     resCounter++;
-
-            for (int i = 1; i < myArr.GetLength(0) - 1; i++)    // для правого столбца без последнего элемента 
-                if (myArr[i, myArr.GetLength(1) - 1] > myArr[i + 1, myArr.GetLength(1) - 1]
-                    && myArr[i, myArr.GetLength(1) - 1] > myArr[i - 1, myArr.GetLength(1) - 2]
-                    && myArr[i, 0] > myArr[i, 1])
+            }
+            for (int j = 1; j < arr.GetLength(1) - 1; j++)
+            {
+                if (arr[arr.GetLength(0) - 1, j] > arr[arr.GetLength(0) - 1, j+1] && 
+                    arr[arr.GetLength(0) - 1, j] > arr[arr.GetLength(0) - 1, j-1] &&
+                    arr[arr.GetLength(0) - 1, j] > arr[arr.GetLength(0) - 1 - 1, j]
+                    )
                     resCounter++;
-
-            // левый верхний угол
-            if (myArr[0, 0] > myArr[1, 0] && myArr[0, 0] > myArr[0, 1])
+            }
+            //углы
+            if (arr[0, 0] > arr[0, 1] && arr[0, 0] > arr[1, 0])
+                resCounter++;
+            if (arr[arr.GetLength(0) - 1, 0] > arr[arr.GetLength(0) - 1, 1] && 
+                arr[arr.GetLength(0) - 1, 0] > arr[arr.GetLength(0) - 1 - 1, 0])
+                resCounter++;
+            if (arr[0, arr.GetLength(1) - 1] > arr[1, arr.GetLength(1) - 1] && 
+                arr[0, arr.GetLength(1) - 1] > arr[1, arr.GetLength(1) - 1 - 1])
+                resCounter++;
+            if (arr[arr.GetLength(0) - 1, arr.GetLength(1) - 1] > arr[arr.GetLength(0) - 1 - 1, arr.GetLength(1) - 1] && 
+                arr[arr.GetLength(0) - 1, arr.GetLength(1) - 1] > arr[arr.GetLength(0) - 1, arr.GetLength(1) - 1 - 1])
                 resCounter++;
 
-            // правый верхний угол
-            if (myArr[0, myArr.GetLength(1) - 1] > myArr[1, myArr.GetLength(1) - 1]
-                && myArr[0, myArr.GetLength(1) - 1] > myArr[0, myArr.GetLength(1) - 2])
-                resCounter++;
-
-            // левый нижний угол
-            if (myArr[myArr.GetLength(0) - 1, 0] > myArr[myArr.GetLength(0) - 1, 1]
-                && myArr[myArr.GetLength(0) - 1, 0] > myArr[myArr.GetLength(0) - 2, 0])
-                resCounter++;
-
-            // правый нижний угол
-            if (myArr[myArr.GetLength(0) - 1, myArr.GetLength(1) - 1] > myArr[myArr.GetLength(0) - 2, myArr.GetLength(1) - 1]
-                && myArr[myArr.GetLength(0) - 1, myArr.GetLength(1) - 1] > myArr[myArr.GetLength(0) - 1, myArr.GetLength(1) - 2])
-                resCounter++;
-            return resCounter;
+                    return resCounter;
         }
 
         //task 7
@@ -265,10 +270,12 @@ namespace MyMethods
         {
             Console.WriteLine("Заполнить массив из символов (char) указанным образом");
 
-            byte[,] myArr = MakeAPicture(7);
+            byte[,] myArr = MakeABytePicture(7);
             Helper.PrintMatrix(myArr);
+            //myArrChars = ConvertBytePicToChars(myArr);
+            //Helper.PrintMatrix(myArrChars);
         }
-        public byte[,] MakeAPicture(int N)
+        public byte[,] MakeABytePicture(int N)
         {
             byte[,] arr = new byte[N, N];
             arr.Initialize();
@@ -281,6 +288,19 @@ namespace MyMethods
                 }
             }
             return arr;
+        }
+        public char[,] ConvertBytePicToChars(byte[,] arr)
+        {
+            char[,] arrc = new char[arr.GetLength(0), arr.GetLength(1)];
+            for (int i = 0; i < arr.GetLength(0); i++)
+            {
+                for (int j = 0; j < arr.GetLength(1); j++)
+                    if (arr[i, j] == 1)
+                        arrc[i, j] = '1';
+                    else
+                        arrc[i, j] = '0';
+            }
+            return arrc;
         }
         //task 8
 
@@ -296,7 +316,7 @@ namespace MyMethods
         public int[,] MultiplexMatrix(int[,] arr1, int[,] arr2)
         {
             if (arr1.GetLength(1) != arr2.GetLength(0))
-                throw new ArgumentException("не возможно перемножить входные матрицы!\n");
+                throw new ArgumentException("невозможно перемножить входные матрицы!\n");
             int[,] resArr = new int[arr1.GetLength(0), arr2.GetLength(1)];
             for (int i = 0; i < arr1.GetLength(0); i++)
             {
